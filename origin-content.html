@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .chatbot-container {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+      }
+
+      .chatbot-wrapper {
+        box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-btns {
+        position: relative;
+      }
+
+      .close-chatbot-icn {
+        position: absolute;
+        top: -10px;
+        right: -12px;
+        border-radius: 50%;
+        border: 1px solid #aaa;
+        text-align: center;
+      }
+
+      .chatbot-header {
+        display: flex;
+        gap: 8px;
+        padding: 12px;
+        background: black;
+        justify-content: end;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      .chatbot-title {
+        margin: 0;
+        color: white;
+        margin-right: auto;
+        font-size: 18px;
+      }
+
+      .chatbot-content {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        background-color: black;
+      }
+
+      .chatbot-hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chatbot-container">
+      <div class="toggle-btns">
+        <button type="button" class="toggle-chatbot-btn">Chat Now</button>
+        <button type="button" class="close-chatbot-icn">x</button>
+      </div>
+      <div class="chatbot-wrapper chatbot-hidden">
+        <div class="chatbot-header">
+          <p class="chatbot-title">Lucas</p>
+          <button type="button" class="hide-chatbot-btn">Hide</button>
+          <button type="button" class="close-chatbot-btn">Close</button>
+        </div>
+        <iframe
+          title="ai-chatbot"
+          class="chatbot-content"
+          width="400"
+          height="450"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const IFRAME_SRC = "http://localhost:3000/ai/lucas";
+    let isChatbotHidden = true;
+
+    const chatbotContainer = document.querySelector(".chatbot-container");
+    const chatbotWrapper = document.querySelector(".chatbot-wrapper");
+    const chatbotContent = document.querySelector(".chatbot-content");
+    const toggleChatbotBtn = document.querySelector(".toggle-chatbot-btn");
+    const closeChatbotBtn2 = document.querySelector(".close-chatbot-icn");
+
+    function toggleChatbot() {
+      chatbotWrapper.classList.toggle("chatbot-hidden");
+      isChatbotHidden = !isChatbotHidden;
+      toggleChatbotBtn.style.display = isChatbotHidden ? "block" : "none";
+      closeChatbotBtn2.style.display = isChatbotHidden ? "block" : "none";
+
+      if (!chatbotContent.src) chatbotContent.src = IFRAME_SRC;
+    }
+
+    function closeChatbot() {
+      chatbotContainer.style.display = "none";
+    }
+
+    chatbotContent.onerror = function () {
+      // Handle errors, such as displaying a message to the user
+    };
+
+    // TODO: Should we maintain the chat session and state across the pages and tabs of the current website?
+  </script>
+</html>
