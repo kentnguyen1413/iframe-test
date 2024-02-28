@@ -24,33 +24,30 @@
         embed your chatbot.
       </li>
     </ul> -->
-    <button class="open-chat-btn">Open Chat from here!</button>
+    // See the ChatGPT and Gemini's responses
     <iframe
       id="chatbot-widget"
       title="ai-chatbot"
-      width="380px"
-      height="650px"
+      width="104px"
+      height="41px"
       src="http://localhost:3000/chat"
       frameborder="0"
     ></iframe>
   </body>
   <script>
+    const CHAT_WIDTH = 380;
+    const CHAT_HEIGHT = 650;
+    const BUTTON_WIDTH = 104;
+    const BUTTON_HEIGHT = 41;
+
+    const chatWidget = document.getElementById("chatbot-widget");
+
     window.onmessage = (event) => {
       if (event.data && event.data.type === "UPDATE_POPUP_STATE") {
         const isOpen = event.data.isOpen;
-        console.log("isOpen: ", isOpen);
-        // Update button visibility based on isOpen (e.g., using display: none/block)
+        chatWidget.style.width = `${isOpen ? CHAT_WIDTH : BUTTON_WIDTH}px`;
+        chatWidget.style.height = `${isOpen ? CHAT_HEIGHT : BUTTON_HEIGHT}px`;
       }
     };
-
-    const userButton = document.querySelector(".open-chat-btn");
-    userButton.addEventListener("click", () => {
-      console.log("click");
-      const iframe = document.getElementById("chatbot-widget");
-      iframe.contentWindow.postMessage(
-        { type: "UPDATE_POPUP_STATE", payload: "data" },
-        "*"
-      );
-    });
   </script>
 </html>
