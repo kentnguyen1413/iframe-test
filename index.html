@@ -3,14 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kentnguyen1413.github.io/iframe-test/script.js"
-      defer
-    ></script>
+    <!-- <script src="./script.js" defer></script> -->
+    <!-- <script src="https://kentnguyen1413.github.io/iframe-test/script.js" defer></script> -->
     <title>Document</title>
   </head>
   <body>
-    <h1>my page content</h1>
+    There are 2 ways - Provide user the HTML snippet like below - Wrap all below
+    into a script and provide user a script src
+    <!-- <p>
+      Provide a snippet of HTML code and doc for website owners to embed the
+      chatbot. This code should include:
+    </p>
+    <ul>
+      <li>An iframe tag with the source (src) set to your public URL.</li>
+      <li>
+        Attributes to define the size and styling of the iframe (optional).
+      </li>
+      <li>
+        Configure CORS settings on your server to control which domains can
+        embed your chatbot.
+      </li>
+    </ul> -->
+    <button class="open-chat-btn">Open Chat from here!</button>
+    <iframe
+      id="chatbot-widget"
+      title="ai-chatbot"
+      width="380px"
+      height="650px"
+      src="http://localhost:3000/chat"
+      frameborder="0"
+    ></iframe>
   </body>
-  <!-- src="https://kentnguyen1413.github.io/iframe-test/script.js" -->
+  <script>
+    window.onmessage = (event) => {
+      if (event.data && event.data.type === "UPDATE_POPUP_STATE") {
+        const isOpen = event.data.isOpen;
+        console.log("isOpen: ", isOpen);
+        // Update button visibility based on isOpen (e.g., using display: none/block)
+      }
+    };
+
+    const userButton = document.querySelector(".open-chat-btn");
+    userButton.addEventListener("click", () => {
+      console.log("click");
+      const iframe = document.getElementById("chatbot-widget");
+      iframe.contentWindow.postMessage(
+        { type: "UPDATE_POPUP_STATE", payload: "data" },
+        "*"
+      );
+    });
+  </script>
 </html>
