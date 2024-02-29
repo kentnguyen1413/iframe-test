@@ -24,15 +24,34 @@
         embed your chatbot.
       </li>
     </ul> -->
-    // See the ChatGPT and Gemini's responses
-    <iframe
-      id="chatbot-widget"
-      title="ai-chatbot"
-      width="104px"
-      height="41px"
-      src="http://localhost:3000/chat"
-      frameborder="0"
-    ></iframe>
+    <div
+      style="
+        position: fixed;
+        background: none transparent;
+        z-index: 999999999;
+        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition-property: bottom, transform;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+        border-radius: 8px 8px 0px 0px;
+        cursor: pointer;
+        bottom: 0px;
+        overflow: hidden;
+        width: 104px;
+        height: 41px;
+        right: 0px;
+        left: auto;
+      "
+      id="chatbot-widget-container"
+    >
+      <iframe
+        title="ai-chatbot"
+        id="chatbot-widget"
+        width="104px"
+        height="41px"
+        src="http://localhost:3000/chat"
+        frameborder="0"
+      ></iframe>
+    </div>
   </body>
   <script>
     const CHAT_WIDTH = 380;
@@ -40,9 +59,13 @@
     const BUTTON_WIDTH = 104;
     const BUTTON_HEIGHT = 41;
 
+    const chatWidgetContainer = document.getElementById(
+      "chatbot-widget-container"
+    );
     const chatWidget = document.getElementById("chatbot-widget");
 
     // The solution to inject script from react app to this html seems to be a bad solution and contains security risks
+    // A solution is chatbot open and closed with transition animation, then this should do the same
 
     window.onmessage = (event) => {
       if (event.data && event.data.type === "UPDATE_POPUP_STATE") {
@@ -50,10 +73,14 @@
         if (isOpen) {
           chatWidget.style.width = `${CHAT_WIDTH}px`;
           chatWidget.style.height = `${CHAT_HEIGHT}px`;
+          chatWidgetContainer.style.width = `${CHAT_WIDTH}px`;
+          chatWidgetContainer.style.height = `${CHAT_HEIGHT}px`;
         } else {
           setTimeout(() => {
             chatWidget.style.width = `${BUTTON_WIDTH}px`;
             chatWidget.style.height = `${BUTTON_HEIGHT}px`;
+            chatWidgetContainer.style.width = `${BUTTON_WIDTH}px`;
+            chatWidgetContainer.style.height = `${BUTTON_HEIGHT}px`;
           }, 300);
         }
       }
