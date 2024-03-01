@@ -3,13 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="./script.js" defer></script> -->
-    <!-- <script src="https://kentnguyen1413.github.io/iframe-test/script.js" defer></script> -->
-    <title>Document</title>
+    <title>Embedded Chatbot template</title>
   </head>
   <body>
-    There are 2 ways - Provide user the HTML snippet like below - Wrap all below
-    into a script and provide user a script src
     <!-- <p>
       Provide a snippet of HTML code and doc for website owners to embed the
       chatbot. This code should include:
@@ -23,31 +19,36 @@
         Configure CORS settings on your server to control which domains can
         embed your chatbot.
       </li>
+      <li>
+        Each user must have their own unique key to access the chatbot.
+      </li>
     </ul> -->
     <div
       style="
         position: fixed;
-        background: none transparent;
+        background: transparent;
         z-index: 999999999;
-        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-        transition-property: bottom, transform;
+        transition: transform 0.3s;
+        transform: translateY(0px);
+        opacity: 1;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
         border-radius: 8px 8px 0px 0px;
         cursor: pointer;
-        bottom: 0px;
+        bottom: 8px;
         overflow: hidden;
         width: 104px;
         height: 41px;
-        right: 0px;
-        left: auto;
+        right: 8px;
+        border-radius: 16px;
       "
-      id="chatbot-widget-container"
+      id="widget-container"
     >
       <iframe
         title="ai-chatbot"
         id="chatbot-widget"
-        width="104px"
-        height="41px"
+        style="border-radius: 8px"
+        width="100%"
+        height="100%"
         src="http://localhost:3000/chat"
         frameborder="0"
       ></iframe>
@@ -59,28 +60,39 @@
     const BUTTON_WIDTH = 104;
     const BUTTON_HEIGHT = 41;
 
-    const chatWidgetContainer = document.getElementById(
-      "chatbot-widget-container"
-    );
-    const chatWidget = document.getElementById("chatbot-widget");
-
-    // The solution to inject script from react app to this html seems to be a bad solution and contains security risks
-    // A solution is chatbot open and closed with transition animation, then this should do the same
+    const chatWidgetContainer = document.getElementById("widget-container");
 
     window.onmessage = (event) => {
-      if (event.data && event.data.type === "UPDATE_POPUP_STATE") {
-        const isOpen = event.data.isOpen;
-        if (isOpen) {
-          chatWidget.style.width = `${CHAT_WIDTH}px`;
-          chatWidget.style.height = `${CHAT_HEIGHT}px`;
+      if (event.data.type === "UPDATE_POPUP_STATE") {
+        if (event.data.isOpen) {
           chatWidgetContainer.style.width = `${CHAT_WIDTH}px`;
           chatWidgetContainer.style.height = `${CHAT_HEIGHT}px`;
-        } else {
+          chatWidgetContainer.style.bottom = "-72px";
+          chatWidgetContainer.style.opacity = "0";
+          chatWidgetContainer.style.transition = "transform 0.3s";
+          chatWidgetContainer.style.transform = `translateY(-80px)`;
+          // setTimeout(() => {
+          //   chatWidgetContainer.style.transition = "transform 0.3s";
+          // });
           setTimeout(() => {
-            chatWidget.style.width = `${BUTTON_WIDTH}px`;
-            chatWidget.style.height = `${BUTTON_HEIGHT}px`;
+            chatWidgetContainer.style.transition =
+              "transform 0.3s, opacity 0.3s";
+            chatWidgetContainer.style.opacity = "1";
+          }, 300);
+          // setTimeout(() => {
+          //   chatWidgetContainer.style.transition =
+          //     "transform 0.3s, opacity 0.3s";
+          //   chatWidgetContainer.style.opacity = "1";
+          // }, 300);
+        } else {
+          chatWidgetContainer.style.transform = `translateY(0px)`;
+          chatWidgetContainer.style.opacity = "0";
+          setTimeout(() => {
+            chatWidgetContainer.style.bottom = "8px";
             chatWidgetContainer.style.width = `${BUTTON_WIDTH}px`;
             chatWidgetContainer.style.height = `${BUTTON_HEIGHT}px`;
+            chatWidgetContainer.style.opacity = "1";
+            chatWidgetContainer.style.transition = "transform 0.3s";
           }, 300);
         }
       }
