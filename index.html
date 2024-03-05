@@ -23,86 +23,15 @@
         Each user must have their own unique key to access the chatbot.
       </li>
     </ul> -->
-    <div
-      id="widget-container"
-      style="
-        position: fixed;
-        background: transparent;
-        z-index: 999999999;
-        opacity: 1;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
-        border-radius: 8px 8px 0px 0px;
-        cursor: pointer;
-        bottom: 8px;
-        overflow: hidden;
-        width: 104px;
-        height: 40px;
-        right: 8px;
-        border-radius: 8px;
-      "
-    >
-      <iframe
-        title="chatbot-widget"
-        id="chatbot-widget"
-        style="border-radius: 8px"
-        width="100%"
-        height="100%"
-        src="http://localhost:3000/chat?uniqueKey=&transitionDuration=300"
-        frameborder="0"
-      ></iframe>
-    </div>
+    <iframe
+      title="chatbot-widget"
+      id="chatbot-widget"
+      style="border-radius: 8px"
+      width="100%"
+      height="100%"
+      src="http://localhost:3000/chat?uniqueKey="
+      frameborder="0"
+    ></iframe>
   </body>
-  <script>
-    const CHAT_WIDTH = 380;
-    const CHAT_HEIGHT = 650;
-    const BUTTON_WIDTH = 104;
-    const BUTTON_HEIGHT = 40;
-    const TRANSITION_DURATION = 300;
-
-    const chatWidgetContainer = document.getElementById("widget-container");
-
-    window.onmessage = (event) => {
-      if (event.data.type === "UPDATE_POPUP_STATE") {
-        if (event.data.isOpen) {
-          chatWidgetContainer.style.width = `${CHAT_WIDTH}px`;
-          chatWidgetContainer.style.height = `${CHAT_HEIGHT}px`;
-          chatWidgetContainer.style.bottom = "-72px";
-
-          // Animate for transform-translate and opacity props
-          chatWidgetContainer.style.opacity = "0";
-          setTimeout(() => {
-            chatWidgetContainer.style.transition = `transform ${TRANSITION_DURATION}ms, opacity ${TRANSITION_DURATION}ms`;
-          }, 10);
-          setTimeout(() => {
-            chatWidgetContainer.style.transform = `translateY(-80px)`;
-            chatWidgetContainer.style.opacity = "1";
-          }, 20);
-
-          // Animate for transform-translate prop
-          // chatWidgetContainer.style.transition = `transform ${TRANSITION_DURATION}ms`;
-          // chatWidgetContainer.style.transform = `translateY(-80px)`;
-        } else {
-          // Animate for transform-translate and opacity props
-          chatWidgetContainer.style.transform = `translateY(0px)`;
-          chatWidgetContainer.style.opacity = "0";
-          setTimeout(() => {
-            chatWidgetContainer.style.bottom = "8px";
-            chatWidgetContainer.style.width = `${BUTTON_WIDTH}px`;
-            chatWidgetContainer.style.height = `${BUTTON_HEIGHT}px`;
-
-            chatWidgetContainer.style.opacity = "1";
-            chatWidgetContainer.style.transition = "none";
-          }, TRANSITION_DURATION);
-
-          // Animate for transform-translate prop
-          // chatWidgetContainer.style.transform = `translateY(0px)`;
-          // setTimeout(() => {
-          //   chatWidgetContainer.style.bottom = "8px";
-          //   chatWidgetContainer.style.width = `${BUTTON_WIDTH}px`;
-          //   chatWidgetContainer.style.height = `${BUTTON_HEIGHT}px`;
-          // }, TRANSITION_DURATION - 50);
-        }
-      }
-    };
-  </script>
+  <script src="https://kentnguyen1413.github.io/iframe-test/script.js"></script>
 </html>
