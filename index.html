@@ -6,32 +6,16 @@
     <title>Embedded Chatbot Template</title>
   </head>
   <body style="background-color: #555">
-    <!-- <p>
-      Provide a snippet of HTML code and doc for website owners to embed the
-      chatbot. This code should include:
-    </p>
-    <ul>
-      <li>An iframe tag with the source (src) set to your public URL.</li>
-      <li>
-        Attributes to define the size and styling of the iframe (optional).
-      </li>
-      <li>
-        Configure CORS settings on your server to control which domains can
-        embed your chatbot.
-      </li>
-      <li>
-        Each user must have their own unique key to access the chatbot.
-      </li>
-    </ul> -->
     <iframe
       title="chatbot-widget"
       id="chatbot-widget"
       style="border-radius: 8px"
       width="100%"
       height="100%"
-      src="http://localhost:3000/chat?uniqueKey="
+      src="http://localhost:3000/widget-chat?uniqueKey="
       frameborder="0"
     ></iframe>
   </body>
-  <script src="https://kentnguyen1413.github.io/iframe-test/script.js"></script>
+  <script src="./widget.js"></script>
+  <!-- <script src="https://kentnguyen1413.github.io/iframe-test/widget.js"></script> -->
 </html>
