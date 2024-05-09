@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome</title>
+    <title>Article generation notification</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -10,12 +11,6 @@
       rel="stylesheet"
     />
     <style>
-      p,
-      h1 {
-        margin: 0;
-        padding: 0;
-      }
-
       .wrapper {
         font-family: "Inter", sans-serif;
         background-color: black !important;
@@ -37,24 +32,34 @@
         width: 80px;
         height: 80px;
       }
-      header .intro {
-        padding-bottom: 20px;
-        font-size: 16px;
-        color: white;
-        line-height: 22px;
-      }
-      header .primary-btn {
+
+      section .primary-btn {
         text-decoration: none;
         display: block;
         width: fit-content;
-        background-color: white;
-        color: black;
+        background-color: white !important;
+        color: black !important;
         font-size: 16px;
         border-radius: 50px;
         padding: 16px 18px;
         font-weight: 600;
         margin: 48px 0;
         cursor: pointer;
+      }
+      section .stat-wrapper {
+        width: 100%;
+        height: 110px;
+        display: table;
+        border-radius: 20px;
+        background-color: #141414;
+      }
+      section .stat {
+        color: #9ee009;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 34px;
+        font-weight: 500;
       }
 
       .divider {
@@ -89,17 +94,15 @@
             src="https://firebasestorage.googleapis.com/v0/b/seoscribe-ai.appspot.com/o/logo.png?alt=media"
             alt="logo"
           />
-          <h1>
-            Welcome to the<br />
-            future of SEO.
-          </h1>
-          <p class="intro">
-            Generate keywords from an idea or provide competitors and we'll
-            rewrite the most related popular articles and publish 1,000s of them
-            online.
-          </p>
-          <a href="/#" type="button" class="primary-btn">Get Started</a>
+          <h1>Your articles are completed!</h1>
         </header>
+
+        <section>
+          <div class="stat-wrapper">
+            <p class="stat">40 articles</p>
+          </div>
+          <a href="/#" type="button" class="primary-btn">Download Articles</a>
+        </section>
 
         <div class="divider"></div>
 
