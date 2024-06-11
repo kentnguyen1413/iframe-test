@@ -9,8 +9,9 @@
   const CHAT_HEIGHT = 700;
   const BUTTON_WIDTH = 48;
   const BUTTON_HEIGHT = 48;
-  // const WIDGET_HOST = "https://uclone.me/widget-chat";
-  const WIDGET_HOST = "http://localhost:3000/widget-chat";
+  const locale = getCookie("NEXT_LOCALE");
+  // const WIDGET_HOST = `https://uclone.me/${locale}/widget-chat`;
+  const WIDGET_HOST = `http://localhost:3001/${locale}/widget-chat`;
 
   const script = document.currentScript;
   let isWidgetOpen = true;
@@ -230,6 +231,28 @@
     window.addEventListener("resize", () => {
       callback(window.innerWidth);
     });
+  }
+
+  function getCookie(name) {
+    // Construct the name of the cookie, followed by an equal sign
+    const nameEQ = name + "=";
+    // Split the cookie string into an array of individual cookies
+    const ca = document.cookie.split(";");
+    // Loop through the cookies
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      // Remove any leading whitespace
+      while (c.charAt(0) == " ") {
+        c = c.substring(1, c.length);
+      }
+      // Check if this cookie matches the name we're looking for
+      if (c.indexOf(nameEQ) == 0) {
+        // Return the value of the cookie (substring after the "=")
+        return c.substring(nameEQ.length, c.length);
+      }
+    }
+    // If no matching cookie is found, return default value  "en"
+    return "en";
   }
 
   if (document.readyState === "complete") {
