@@ -42,7 +42,8 @@
       bottom: 80px;
       right: 30px;
       width: ${CHAT_WIDTH}px;
-      height: ${CHAT_HEIGHT}px;
+      height: calc(100vh - 80px);
+      max-height: ${CHAT_HEIGHT}px;
       border-radius: 18px;
       box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 32px 0 rgba(0, 0, 0, 0.16);
       box-sizing: content-box;
@@ -67,8 +68,13 @@
 
     const msgBubbles = document.createElement("div");
     msgBubbles.id = "chat-message-bubbles";
-    msgBubbles.style =
-      "position: fixed; bottom: 75px; border-radius: 10px; font-family: sans-serif; font-size: 16px; z-index: 2147483644; cursor: pointer; flex-direction: column; gap: 50px; max-width: 70vw; display: block; right: 1rem; left: unset;";
+    msgBubbles.style = `position: fixed; bottom: 75px; border-radius: 10px; font-family: sans-serif; font-size: 16px; z-index: 2147483644; cursor: pointer; flex-direction: column; gap: 50px; max-width: 70vw; display: block; right: 1rem; left: unset; 
+    @media screen and (max-width: 600px) {
+      #chat-message-bubbles {
+        visibility: hidden;
+        display: none;
+      }
+    }`;
     msgBubbles.innerHTML = ` 
       <div style="display: flex; justify-content: flex-end;">
           <div style="background-color: white; color: black; box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; border-radius: 10px; padding: 20px; margin: 8px; font-size: 14px; opacity: 1; transform: scale(1); transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;">👋 Hi! I am uCloneAI, ask me anything!</div>
