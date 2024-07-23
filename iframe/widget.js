@@ -227,40 +227,15 @@
       }
     });
 
+    window.addEventListener("message", (event) => {
+      const lang = event.data.lang;
+      if (lang) setCookie("NEXT_LOCALE", lang, 365);
+    });
+
     chatWidgetContainer.appendChild(chatWidget);
     document.body.appendChild(chatWidgetContainer);
     document.body.appendChild(toggleButton);
     if (isMsgBubblesShowed) document.body.appendChild(msgBubbles);
-  }
-
-  function onWindowResize(callback) {
-    callback(window.innerWidth);
-
-    window.addEventListener("resize", () => {
-      callback(window.innerWidth);
-    });
-  }
-
-  function getCookie(name) {
-    // Construct the name of the cookie, followed by an equal sign
-    const nameEQ = name + "=";
-    // Split the cookie string into an array of individual cookies
-    const ca = document.cookie.split(";");
-    // Loop through the cookies
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      // Remove any leading whitespace
-      while (c.charAt(0) == " ") {
-        c = c.substring(1, c.length);
-      }
-      // Check if this cookie matches the name we're looking for
-      if (c.indexOf(nameEQ) == 0) {
-        // Return the value of the cookie (substring after the "=")
-        return c.substring(nameEQ.length, c.length);
-      }
-    }
-    // If no matching cookie is found, return default value  "en"
-    return "en";
   }
 
   if (document.readyState === "complete") {
@@ -273,6 +248,46 @@
     });
   }
 })();
+
+function setCookie(name, value, days) {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+  // Construct the name of the cookie, followed by an equal sign
+  const nameEQ = name + "=";
+  // Split the cookie string into an array of individual cookies
+  const ca = document.cookie.split(";");
+  // Loop through the cookies
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    // Remove any leading whitespace
+    while (c.charAt(0) == " ") {
+      c = c.substring(1, c.length);
+    }
+    // Check if this cookie matches the name we're looking for
+    if (c.indexOf(nameEQ) == 0) {
+      // Return the value of the cookie (substring after the "=")
+      return c.substring(nameEQ.length, c.length);
+    }
+  }
+  // If no matching cookie is found, return default value  "en"
+  return "en";
+}
+
+function onWindowResize(callback) {
+  callback(window.innerWidth);
+
+  window.addEventListener("resize", () => {
+    callback(window.innerWidth);
+  });
+}
 
 function isMobileDevice() {
   if (
