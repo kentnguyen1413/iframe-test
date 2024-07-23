@@ -17,7 +17,8 @@
   let isWidgetOpen = true;
 
   let isMsgBubblesShowed = localStorage.getItem("isMsgBubblesShowed");
-  if (isMsgBubblesShowed === null) isMsgBubblesShowed = true;
+  if (isMobileDevice()) isMsgBubblesShowed = false;
+  else if (isMsgBubblesShowed === null) isMsgBubblesShowed = true;
   else if (isMsgBubblesShowed === "false") isMsgBubblesShowed = false;
 
   function loadWidget() {
@@ -43,6 +44,7 @@
       right: 30px;
       width: ${CHAT_WIDTH}px;
       height: calc(100vh - 80px);
+      height: calc(100dvh - 80px);
       max-height: ${CHAT_HEIGHT}px;
       border-radius: 18px;
       box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 32px 0 rgba(0, 0, 0, 0.16);
@@ -271,3 +273,15 @@
     });
   }
 })();
+
+function isMobileDevice() {
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/webOS/i) ||
+    navigator.userAgent.match(/iPhone/i)
+  ) {
+    return true;
+  }
+
+  return false;
+}
